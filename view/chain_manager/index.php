@@ -88,6 +88,49 @@ session_start();
     font-style: italic; 
     font-weight: bold;
     }
+    .sidebar .dropdown-menu {
+    background-color: #f8f9fa;
+    padding: 10px 0; 
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    width: 100%; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    position: relative; 
+    }
+
+    .sidebar .dropdown-item {
+      color: #333;
+      padding: 10px 15px; 
+      border-radius: 3px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      width: 100%; 
+      display: block; 
+    }
+
+    .sidebar .dropdown-item:hover {
+      background-color: #e9ecef;
+    }
+
+    .sidebar .dropdown-toggle::after {
+      margin-left: 10px;
+    }
+
+    .sidebar .dropdown-item.active, 
+    .sidebar .dropdown-item:active {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .nav-item .dropdown-menu {
+      display: none;
+      position: relative;
+      width: 100%; 
+    }
+
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+      width: 100%; 
+    }
   </style>
   
 </head>
@@ -121,8 +164,14 @@ session_start();
           <li class="nav-item">
             <a href="?action=quan-ly-nguyen-lieu" class="nav-link <?php echo (isset($_REQUEST['action']) && $_REQUEST['action'] === 'quan-ly-nguyen-lieu') ? 'active' : ''; ?>" id="ingredientManagementLink">Quản lý nguyên liệu</a>
           </li>
-          <li class="nav-item">
-            <a href="?action=quan-ly-mon-an" class="nav-link <?php echo (isset($_REQUEST['action']) && $_REQUEST['action'] === 'quan-ly-mon-an') ? 'active' : ''; ?>" id="menuManagementLink">Quản lý món ăn</a>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle <?php echo (isset($_REQUEST['action']) && strpos($_REQUEST['action'], 'quan-ly-mon-an') !== false) ? 'active' : ''; ?>" id="menuManagementLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Quản lý thực đơn
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="menuManagementLink">
+              <li><a href="?action=quan-ly-mon-an" class="dropdown-item">Quản lý món ăn</a></li>
+              <li><a href="?action=quan-ly-loai-mon-an" class="dropdown-item">Quản lý loại món ăn</a></li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="?action=thong-ke-doanh-thu" class="nav-link <?php echo (isset($_REQUEST['action']) && $_REQUEST['action'] === 'thong-ke-doanh-thu') ? 'active' : ''; ?>" id="revenueStatisticsLink">Thống kê doanh thu</a>
@@ -145,6 +194,9 @@ session_start();
                   case 'quan-ly-mon-an':
                       include_once("quan-ly-mon-an.php");
                       break;
+                      case 'quan-ly-loai-mon-an':
+                        include_once("quan-ly-loai-mon-an.php");
+                        break;
                   case 'duyet-de-xuat-mon-moi':
                       include_once("duyet-de-xuat-mon-moi.php");
                       break;
